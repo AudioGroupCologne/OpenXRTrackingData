@@ -2,6 +2,7 @@ Application to receive tracking information from VR System
 
 This program is designed to fetch the tracking information of HTC VIVE Tracker devices using the openXR API.
 The tracking information then will be send via the OSC Message protocol.
+The positions are given for a clockwise xyz coordinate system, where the x-axis points to the right, y points upwards and z points to the front.
 
 Prerequirements:
 - Steam VR
@@ -54,6 +55,26 @@ before starting the application, the following should be checked:
 if nothing is passed a default
 **127.0.0.1:7000**  **xyzazel**
 is used
-It is advised not to use the Pitch, Roll, Yaw Message
+It is advised to use either quaternions or xyzazel, as xyzpry can become unstable for certain angles.
+
+Relevant classes overview
+
+main.cpp
+
+- process command line arguments
+- call frame-loop
+
+XrProgram.hpp
+- init connection between application & VR Runtime
+- connecting HTC Vive Tracker
+- accessing tracker positions (quaternions) from Runtime
+
+PositionData.hpp
+- converting orientation from quaternions to different formats
+
+OscMessenger.hpp
+- sends data as OSC messages in one of the defined message types
+
+
 
   
